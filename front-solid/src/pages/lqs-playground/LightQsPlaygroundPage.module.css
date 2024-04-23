@@ -1,0 +1,19 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+}
+
+.data{
+  display: grid;;
+  grid-template-columns: 33% 33% 33%;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.data >div{
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  padding: 0 1em;
+}
