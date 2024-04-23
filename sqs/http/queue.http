@@ -1,0 +1,75 @@
+@port=5000
+#*************************************************************************
+
+# Queue Apis
+
+#*************************************************************************
+# List Queues
+GET http://localhost:{{port}}/api/queues/all
+
+# Create Queue
+POST http://localhost:3000/api/queues/add
+Content-Type: application/json
+
+{
+  "name": "myqueue"
+}
+
+
+#*************************************************************************
+
+# Get Messages
+
+#*************************************************************************
+GET http://localhost:3000/api/queues/64f327bb7ebd0f32d0cf8056/messages
+
+#*************************************************************************
+
+# Produce Message
+
+#*************************************************************************
+POST http://localhost:3000/api/messages/produce
+Content-Type: application/json
+
+{
+  "queueId": "64f327bb7ebd0f32d0cf8056",
+  "body": "hell world 1"
+}
+
+# Produce Message
+POST http://localhost:3000/api/messages/produce
+Content-Type: application/json
+
+{
+  "queueId": "64f327bb7ebd0f32d0cf8056",
+  "body": "hell world 2"
+}
+
+# Produce Message
+POST http://localhost:3000/api/messages/produce
+Content-Type: application/json
+
+{
+  "queueId": "64f327bb7ebd0f32d0cf8056",
+  "body": "hell world 3"
+}
+
+#*************************************************************************
+
+# Consume Message
+
+#*************************************************************************
+POST http://localhost:3000/api/messages/consume
+Content-Type: application/json
+
+{
+  "queueId": "64f327bb7ebd0f32d0cf8056"
+}
+
+#*************************************************************************
+
+# Delete Message
+
+#*************************************************************************
+DELETE http://localhost:3000/api/messages/64fb2aeefe3f0da04d8ecbe2/delete
+Content-Type: application/json

@@ -1,0 +1,25 @@
+version: '2'
+services:
+  top_sort:
+    build: ./backend/pac-top-sort
+    ports:
+      - 8000:8000
+  sqs:
+    build: ../cloud-services/queue-service
+    ports:
+      - 5000:5000
+  lredis:
+    build: ../redis-light
+    ports:
+      - 50051:50051
+  fib_calc:
+    depends_on:
+      - sqs
+      - lredis
+    build: ./backend/fib-calc
+    ports:
+      - 8001:8001
+  frontend:
+    build: ../light-app/front-solid
+    ports:
+      - 3000:3000

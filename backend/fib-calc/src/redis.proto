@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+service LRedisService {
+  rpc Set(SetRequest) returns (SetResponse) {}
+  rpc Get(GetRequest) returns (GetResponse) {}
+  rpc Has(HasRequest) returns (HasResponse) {}
+}
+
+message SetRequest {
+  string key = 1;
+  string value = 2;
+}
+
+message SetResponse {
+  string status = 1;
+}
+
+message GetRequest {
+  string key = 1;
+}
+
+message GetResponse {
+  string value = 1;
+}
+
+message HasRequest {
+  string key = 1;
+}
+
+message HasResponse {
+  bool has = 1;
+  string value = 2;
+}
+
