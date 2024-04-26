@@ -18,21 +18,22 @@ Certainly! Here are some backend project ideas with a focus on lower-level progr
 
 1. HTTP Server from Scratch:
      Implement a basic HTTP server in C or Rust without using existing frameworks. This project involves socket programming, parsing HTTP requests, and handling responses.
-2. Database Engine:
+2. Execution System: takes code to run -> runs code in server -> return execution result to the user
+3. Database Engine:
      Build a simple database engine in C or Rust. Start with a key-value store and then extend it to support more complex operations like indexing and querying.
-3. Distributed Key-Value Store:
+4. Distributed Key-Value Store:
      Create a distributed key-value store system using a language like Go. This project involves network programming, data replication, and fault tolerance.
-4. Message Queue System:
+5. Message Queue System:
      Develop a message queue system in C or Rust for asynchronous communication between microservices. Implement features like message persistence, message routing, and message acknowledgment.
-5. TCP/IP Stack Implementation:
+6. TCP/IP Stack Implementation:
      Implement a TCP/IP stack from scratch in C. This project involves implementing the TCP, IP, and Ethernet layers, as well as handling packet routing and transmission.
-6. Web Server with CGI Support:
+7. Web Server with CGI Support:
      Build a web server with CGI (Common Gateway Interface) support in C or Rust. This project involves parsing HTTP requests, executing CGI scripts, and generating HTTP responses.
-7. Proxy Server:
+8. Proxy Server:
      Develop a simple proxy server in C or Rust that forwards HTTP requests and responses between clients and servers. This project involves socket programming, request forwarding, and caching.
-8. Blockchain Node:
+9. Blockchain Node:
      Create a simple blockchain node in C or Rust. Implement features like block validation, peer-to-peer networking, and consensus mechanisms (e.g., Proof of Work).
-9. File System:
+10. File System:
      Build a basic file system in C or Rust. This project involves implementing file allocation, directory structures, and file operations (e.g., read, write, delete).
-10. Web Framework from Scratch:
+11. Web Framework from Scratch:
         Develop a lightweight web framework in C or Rust inspired by existing frameworks like Flask or Express.js. This project involves routing requests, handling middleware, and generating responses.
