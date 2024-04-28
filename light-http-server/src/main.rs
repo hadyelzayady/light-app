@@ -3,8 +3,10 @@ use std::{
     io::{BufRead, BufReader, Write},
     net::{TcpListener, TcpStream},
     str::FromStr,
-    time::Instant,
+    thread,
+    time::Duration,
 };
+use light_http_server::ThreadPool;
 
 #[derive(Debug)]
 enum HttpMethod {
@@ -98,6 +100,8 @@ impl ToString for HttpResponse {
         response.push_str(&self.status_code.to_string());
         response.push_str("\r\n");
         response.push_str(&self.headers.as_ref().unwrap().to_string());
+        response.push_str("\r\n");
+        response.push_str(self.message_body.as_ref().unwrap());
         response
     }
 }
@@ -116,9 +120,14 @@ impl ToString for HttpRequestHeaders {
 
 fn main() {
     let listner = TcpListener::bind("127.0.0.1:7878").unwrap();
+    let pool = ThreadPool::build(2);
     // thread pool with event loop
     for stream in listner.incoming() {
-        handle_connection(stream.unwrap());
+        let stream = stream.unwrap();
+        pool.as_ref().unwrap().execute(|| {
+            println!("{:?}", thread::current().id());
+            handle_connection(stream);
+        });
     }
 }
 
@@ -130,7 +139,7 @@ fn handle_connection(mut stream: TcpStream) {
         .take_while(|l| !l.is_empty())
         .collect();
     //println!("{:?}", lines);
-    let sep = header_lines.iter().position(|l| l.starts_with("\r\n\r\n"));
+    let _sep = header_lines.iter().position(|l| l.starts_with("\r\n\r\n"));
     let method_line = header_lines.first();
     let mut values = method_line.unwrap().split_whitespace();
     let method = HttpMethod::from_str(values.next().unwrap());
@@ -150,9 +159,12 @@ fn handle_connection(mut stream: TcpStream) {
         headers: Some(HttpRequestHeaders {
             headers: HashMap::from([("date".to_string(), chrono::Local::now().to_string())]),
         }),
-        message_body: Default::default(),
+        message_body: Some("hhhh".to_string()),
     };
+    if method_line.unwrap().contains(&"/sleep".to_string()) {
+        thread::sleep(Duration::from_secs(5));
+    }
     stream.write_all(response.to_string().as_bytes()).unwrap();
 
-    println!("{:?}", request);
+    //println!("{:?}", request);
 }
