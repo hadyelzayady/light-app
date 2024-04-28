@@ -1,3 +1,10 @@
+use light_http_server::{
+    common::{
+        http_version::{self, HttpVersion},
+        status::HttpStatus,
+    },
+    ThreadPool,
+};
 use std::{
     collections::HashMap,
     io::{BufRead, BufReader, Write},
@@ -6,17 +13,11 @@ use std::{
     thread,
     time::Duration,
 };
-use light_http_server::ThreadPool;
 
 #[derive(Debug)]
 enum HttpMethod {
     //Post { body: String },
     GET,
-}
-#[derive(Debug, Clone)]
-enum HttpVersion {
-    HTTP1_1,
-    HTTP2,
 }
 #[derive(Debug)]
 enum ReasonPhrase {
@@ -37,13 +38,13 @@ struct HttpRequestHeaders {
 struct HttpRequest {
     method: HttpMethod,
     uri: String,
-    version: HttpVersion,
+    version: http_version::HttpVersion,
     headers: Option<HttpRequestHeaders>,
     body: Option<Vec<String>>,
 }
 struct HttpResponse {
-    http_version: HttpVersion,
-    status_code: StatusCode,
+    http_version: http_version::HttpVersion,
+    status_code: HttpStatus,
     reason_phrase: ReasonPhrase,
     headers: Option<HttpRequestHeaders>,
     message_body: Option<String>,
@@ -61,14 +62,6 @@ impl FromStr for HttpMethod {
 
     type Err = ();
 }
-impl ToString for HttpVersion {
-    fn to_string(&self) -> String {
-        match self {
-            HttpVersion::HTTP1_1 => "HTTP/1.1".to_string(),
-            HttpVersion::HTTP2 => "HTTP/2".to_string(),
-        }
-    }
-}
 
 impl ToString for StatusCode {
     fn to_string(&self) -> String {
@@ -77,18 +70,6 @@ impl ToString for StatusCode {
             StatusCode::BadRequest => "400 BadRequest".to_string(),
         }
     }
-}
-
-impl FromStr for HttpVersion {
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        match s {
-            "HTTP/2" => Ok(HttpVersion::HTTP2),
-            "HTTP/1.1" => Ok(HttpVersion::HTTP1_1),
-            _ => Err(()),
-        }
-    }
-
-    type Err = ();
 }
 
 impl ToString for HttpResponse {
@@ -153,8 +134,8 @@ fn handle_connection(mut stream: TcpStream) {
         body: Default::default(), //Some(header_lines[sep.unwrap() + 1..].to_vec()),
     };
     let response = HttpResponse {
-        http_version: request.version.clone(),
-        status_code: StatusCode::Ok,
+        http_version: request.version,
+        status_code: HttpStatus::OK,
         reason_phrase: ReasonPhrase::HTTP1_1,
         headers: Some(HttpRequestHeaders {
             headers: HashMap::from([("date".to_string(), chrono::Local::now().to_string())]),
