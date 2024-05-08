@@ -1,4 +1,6 @@
 pub mod common;
+pub mod http_request;
+pub mod http_response;
 use std::{
     fmt::Debug,
     sync::{mpsc, Arc, Mutex},

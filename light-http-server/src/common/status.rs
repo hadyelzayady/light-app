@@ -1,5 +1,6 @@
 use std::num::NonZeroU16;
 
+#[derive(Debug)]
 pub struct HttpStatus(NonZeroU16);
 
 impl HttpStatus {
