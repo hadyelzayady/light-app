@@ -31,7 +31,8 @@ impl HttpRequest {
         }
         let method = HttpMethod::from_str(request_line.first().unwrap())?;
         let url = request_line.get(1).unwrap();
-        let version = HttpVersion::from_str(request_line.get(2).unwrap()).unwrap();
+        println!("request line {:?}", request_line);
+        let version = HttpVersion::from_str(request_line.get(2).unwrap().trim_end()).unwrap();
         let request = HttpRequest {
             method,
             uri: url.to_string(),

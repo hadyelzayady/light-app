@@ -32,5 +32,7 @@ fn handle_connection(mut stream: TcpStream) {
 
 fn handle_http_request(http_request: &HttpRequest, res_handler: &mut HttpResponse) {
     res_handler.set_status(HttpStatus::OK);
+    res_handler.set_body("hhhh".to_string());
+    res_handler.add_header("server".to_string(), "ligh-app".to_string());
     res_handler.send();
 }
