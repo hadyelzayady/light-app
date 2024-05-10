@@ -61,7 +61,7 @@ impl<'a> ToString for HttpResponse<'a> {
         response.push(' ');
         response.push_str(&self.status.as_ref().unwrap().to_string());
         response.push_str("\r\n");
-        if (self.headers.is_some()) {
+        if self.headers.is_some() {
             response.push_str(&get_headers(self.headers.as_ref().unwrap()));
         }
         response.push_str("\r\n");

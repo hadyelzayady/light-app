@@ -1,11 +1,9 @@
 use light_http_server::{
-    common::status::HttpStatus,
-    http_request::{self, http_request::HttpRequest},
-    http_response::http_response::HttpResponse,
-    ThreadPool,
+    common::status::HttpStatus, http_request::http_request::HttpRequest,
+    http_response::http_response::HttpResponse, ThreadPool,
 };
 use std::{
-    io::{BufReader, Write},
+    io::BufReader,
     net::{TcpListener, TcpStream},
     thread,
 };
@@ -30,9 +28,9 @@ fn handle_connection(mut stream: TcpStream) {
     handle_http_request(&http_request.unwrap(), &mut resp);
 }
 
-fn handle_http_request(http_request: &HttpRequest, res_handler: &mut HttpResponse) {
+fn handle_http_request(_http_request: &HttpRequest, res_handler: &mut HttpResponse) {
     res_handler.set_status(HttpStatus::OK);
-    res_handler.set_body("hhhh".to_string());
+    res_handler.set_body("Welcome To Light Http Server By hadyelzayady".to_string());
     res_handler.add_header("server".to_string(), "ligh-app".to_string());
     res_handler.send();
 }
