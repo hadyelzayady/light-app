@@ -20,5 +20,5 @@ COPY --from=prerelease /usr/src/app/tailwind.config.js .
 COPY --from=prerelease /usr/src/app/tsconfig.json .
 COPY --from=prerelease /usr/src/app/index.html .
 
-EXPOSE 3000/tcp
+EXPOSE 80/tcp
 ENTRYPOINT ["bun", "dev"]
