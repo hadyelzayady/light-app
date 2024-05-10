@@ -10,6 +10,7 @@ use std::{
 
 fn main() {
     let listner = TcpListener::bind("127.0.0.1:7878").unwrap();
+    println!("Listening On: http://127.0.0.1:7878");
     let pool = ThreadPool::build(2);
     // thread pool with event loop
     for stream in listner.incoming() {
