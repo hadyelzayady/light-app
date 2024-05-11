@@ -24,10 +24,11 @@ services:
     image: hadyelzayady1996/light-app-frontend
     networks:
       - reverse-proxy
-    port:
+    ports:
       - 80:80
 
 networks:
   queue-service:
     name: queue-service
     external: true
+  reverse-proxy:
