@@ -1,3 +1,4 @@
+
 FROM oven/bun:1 as base
 WORKDIR /usr/src/app
 
@@ -20,5 +21,12 @@ COPY --from=prerelease /usr/src/app/tailwind.config.js .
 COPY --from=prerelease /usr/src/app/tsconfig.json .
 COPY --from=prerelease /usr/src/app/index.html .
 
+FROM release AS build
+RUN bun run build
+
+FROM nginx:latest as prod
+COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+
 EXPOSE 80/tcp
-ENTRYPOINT ["bun", "dev"]
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
