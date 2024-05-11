@@ -20,6 +20,7 @@ COPY --from=prerelease /usr/src/app/postcss.config.js .
 COPY --from=prerelease /usr/src/app/tailwind.config.js .
 COPY --from=prerelease /usr/src/app/tsconfig.json .
 COPY --from=prerelease /usr/src/app/index.html .
+COPY --from=prerelease /usr/src/app/.env .
 
 FROM release AS build
 RUN bun run build
