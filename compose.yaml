@@ -18,8 +18,14 @@ services:
   #     - 8001:8001
   frontend:
     image: hadyelzayady1996/light-app-frontend
+    networks:
+      - reverse-proxy
   reverse-proxy:
     image: hadyelzayady1996/light-app-frontend
+    networks:
+      - reverse-proxy
+    port:
+      - 80:80
 
 networks:
   queue-service:
