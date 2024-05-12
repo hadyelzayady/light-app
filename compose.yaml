@@ -4,6 +4,7 @@ services:
     image: hadyelzayady1996/light-app-topological-sort:latest
     networks:
       - queue-service
+      - reverse-proxy
 
   # lredis:
   #   build: ../redis-light
@@ -21,7 +22,7 @@ services:
     networks:
       - reverse-proxy
   reverse-proxy:
-    image: hadyelzayady1996/light-app-frontend
+    image: hadyelzayady1996/light-app-reverse-proxy
     networks:
       - reverse-proxy
     ports:
