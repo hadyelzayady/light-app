@@ -2,3 +2,4 @@
 
 docker build . -t hadyelzayady1996/light-app-reverse-proxy:latest && docker push hadyelzayady1996/light-app-reverse-proxy:latest
 
+kitten ssh admin@ec2-13-60-80-163.eu-north-1.compute.amazonaws.com -t "cd services && docker compose pull && docker compose up -d"
